@@ -32,6 +32,6 @@ for i in range(2, limit+1):
 T2 = time.perf_counter()
 out.close()
 
-print('Found %d Prime numbers smaller than %d in %d sec.' % (amount, limit, T2-T1))
+print('Found %d Prime numbers smaller than %d in %f sec.' % (amount, limit, T2-T1))
 print('--------------------------------------------')
 

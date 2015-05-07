@@ -5,10 +5,7 @@ import random
 def drop_needle(L):
     x = random.random()
     a = random.vonmisesvariate(0,0)
-    if math.floor(x) != math.floor(x + L * math.cos(a)):
-        return True
-    else:
-        return False
+    return math.floor(x) != math.floor(x + L * math.cos(a))
 
 hits = 0
 

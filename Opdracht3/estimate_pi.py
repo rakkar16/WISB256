@@ -5,7 +5,7 @@ import random
 def drop_needle(L):
     x = random.random()
     a = random.vonmisesvariate(0,0)
-    if math.floor(x) - math.floor(x + L * math.cos(a)) != 0:
+    if math.floor(x) != math.floor(x + L * math.cos(a)):
         return True
     else:
         return False
@@ -23,10 +23,12 @@ try:
     random.seed(float(sys.argv[3]))
 except IndexError:
     pass
-    
+"""    
 if L > 1:
     print('AssertionError: L should be smaller than 1')
     exit()
+"""
+
 
 for i in range(N):
     if drop_needle(L):
@@ -34,6 +36,9 @@ for i in range(N):
         
 print('%d hits in %d tries' % (hits, N))
 
-pi = 2 * L * N / hits
+if L <= 1:
+    pi = 2 * L * N / hits
+else:
+    pi = 2 * (L - math.sqrt(L**2 - 1) - math.asin(1/L)) / (hits / N - 1)
 
 print('Pi = '+ str(pi))

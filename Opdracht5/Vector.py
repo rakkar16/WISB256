@@ -34,3 +34,22 @@ class Vector(object):
         
     def norm(self):
         return sqrt(self.inner(self))
+        
+    def __add__(self, other):
+        return self.lincomb(other)
+        
+    def __sub__(self, other):
+        return self.lincomb(other, 1, -1)
+        
+    def project(v, u): #project self(v) onto other(u)
+        return u.scalar(v.inner(u)/u.inner(u))
+        
+def GrammSchmidt(V):
+    U = [0] * len(V)
+    E = [0] * len(V)
+    for k in range(len(V)):
+        U[k] = V[k]
+        for j in range(k):
+            U[k] -= V[k].project(U[j])
+        E[k] = U[k].scalar(1/(U[k].norm()))
+    return E

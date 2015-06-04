@@ -27,7 +27,11 @@ class Lorenz(object):
     def isStable(self,u):
         J = self.df(u)
         eigvalues = linalg.eig(J)[0]
+        ans = False
         for a in eigvalues:
-            if a.imag != 0 or a.real >= 0:
-                return False
-        return True
+            if a.imag == 0:
+                if a.real >=0:
+                    return False
+                else:
+                    ans = True
+        return ans

@@ -1,4 +1,5 @@
 from scipy import integrate
+from scipy import linalg
 import numpy
 
 class Lorenz(object):
@@ -19,3 +20,14 @@ class Lorenz(object):
             i += dt
         """
         return integrate.odeint(lambda xyz,t:lorfun(xyz, self._sigma, self._rho, self._beta), self._state, tlist)#, (), None, 0, 0, None,None,None,None,None,dt,dt,dt)
+        
+    def df(self,u):
+        return numpy.matrix('{} {} {};{} {} {};{} {} {}'.format(-self._sigma, self._sigma, 0, self._rho - u[2], -1, -u[0], u[1], u[0], -self._beta))
+        
+    def isStable(self,u):
+        J = self.df(u)
+        eigvalues = linalg.eig(J)[0]
+        for a in eigvalues:
+            if a.imag != 0 or a.real >= 0:
+                return False
+        return True
